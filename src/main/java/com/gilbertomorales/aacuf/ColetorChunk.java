@@ -91,8 +91,8 @@ public class ColetorChunk implements Listener, CommandExecutor {
                     chest.setCustomName(nomeBauColetor);
                     chest.update();
                     chestLocations.add(block.getLocation());
+                    salvarColetores(event.getPlayer(), block.getLocation());
                     block.getWorld().spawnParticle(Particle.DRAGON_BREATH, block.getLocation().add(0.5, 1, 0.5), 100, 0.5, 0.5, 0.5, 0.1);
-                    salvarColetores();
                     event.getPlayer().sendMessage(ChatColor.GREEN + "Coletor de chunk posicionado com sucesso.");
                     block.getWorld().playSound(block.getLocation(), "entity.item.pickup", 1f, 1f);
                 }
@@ -215,6 +215,7 @@ public class ColetorChunk implements Listener, CommandExecutor {
         }
 
         chestLocations.removeAll(coletoresARemover);
+
         salvarColetores();
 
         if (coletoresARemover.isEmpty()) {
@@ -238,6 +239,7 @@ public class ColetorChunk implements Listener, CommandExecutor {
 
         locationsConfig = YamlConfiguration.loadConfiguration(locationsFile);
 
+        Set<String> keysToRemove = new HashSet<>();
         for (String key : locationsConfig.getKeys(false)) {
             double x = locationsConfig.getDouble(key + ".x");
             double y = locationsConfig.getDouble(key + ".y");
@@ -245,23 +247,54 @@ public class ColetorChunk implements Listener, CommandExecutor {
             String worldName = locationsConfig.getString(key + ".world");
 
             Location location = new Location(Bukkit.getWorld(worldName), x, y, z);
-            chestLocations.add(location);
+            if (location.getBlock().getType() == Material.CHEST) {
+                BlockState state = location.getBlock().getState();
+                if (state instanceof Chest chest && nomeBauColetor.equals(chest.getCustomName())) {
+                    chestLocations.add(location);
+                } else {
+                    keysToRemove.add(key);
+                }
+            } else {
+                keysToRemove.add(key);
+            }
+        }
+
+        for (String key : keysToRemove) {
+            locationsConfig.set(key, null);
+        }
+
+        if (!keysToRemove.isEmpty()) {
+            salvarColetores();
         }
     }
 
     void salvarColetores() {
+        salvarColetores(null, null);
+    }
+
+    void salvarColetores(Player player, Location location) {
         if (locationsConfig == null) {
             locationsConfig = new YamlConfiguration();
         }
 
         int index = 0;
         for (Location loc : chestLocations) {
-            String key = "location" + index;
+            String key = "coletor" + index;
             locationsConfig.set(key + ".x", loc.getX());
             locationsConfig.set(key + ".y", loc.getY());
             locationsConfig.set(key + ".z", loc.getZ());
             locationsConfig.set(key + ".world", loc.getWorld().getName());
             index++;
+        }
+
+        // Save the new collector with player name
+        if (player != null && location != null) {
+            String key = "coletor" + index;
+            locationsConfig.set(key + ".x", location.getX());
+            locationsConfig.set(key + ".y", location.getY());
+            locationsConfig.set(key + ".z", location.getZ());
+            locationsConfig.set(key + ".world", location.getWorld().getName());
+            locationsConfig.set(key + ".player", player.getName());
         }
 
         try {
