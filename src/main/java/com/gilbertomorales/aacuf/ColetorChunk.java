@@ -6,6 +6,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Chest;
 import org.bukkit.command.Command;
@@ -23,7 +24,6 @@ import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.block.BlockFace;
 
 import java.io.File;
 import java.io.IOException;
@@ -50,6 +50,11 @@ public class ColetorChunk implements Listener, CommandExecutor {
 
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
+
+        if (event.isCancelled()) {
+            return;
+        }
+
         Block block = event.getBlock();
         if (block.getType() == Material.CHEST) {
             boolean isColetor = event.getItemInHand().hasItemMeta() &&
@@ -97,6 +102,11 @@ public class ColetorChunk implements Listener, CommandExecutor {
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
+        // Verifica se o evento foi cancelado por outro plugin
+        if (event.isCancelled()) {
+            return;
+        }
+
         Block block = event.getBlock();
         if (block.getType() == Material.CHEST) {
             BlockState state = block.getState();
