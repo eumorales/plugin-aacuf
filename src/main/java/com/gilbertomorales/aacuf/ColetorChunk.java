@@ -102,7 +102,7 @@ public class ColetorChunk implements Listener, CommandExecutor {
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
-        // Verifica se o evento foi cancelado por outro plugin
+
         if (event.isCancelled()) {
             return;
         }
@@ -189,6 +189,12 @@ public class ColetorChunk implements Listener, CommandExecutor {
             }
 
             Player player = (Player) sender;
+
+            if (!player.hasPermission("aacuf.coletor.remover")) {
+                player.sendMessage(ChatColor.RED + "Você não tem permissão para usar este comando.");
+                return true;
+            }
+
             removerColetoresProximos(player);
             return true;
         }
