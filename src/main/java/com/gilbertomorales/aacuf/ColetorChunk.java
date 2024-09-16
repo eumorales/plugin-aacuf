@@ -23,6 +23,7 @@ import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.block.BlockFace;
 
 import java.io.File;
 import java.io.IOException;
@@ -60,6 +61,21 @@ public class ColetorChunk implements Listener, CommandExecutor {
                         event.getPlayer().sendMessage(ChatColor.RED + "Já existe um Coletor posicionado neste chunk.");
                         event.setCancelled(true);
                         return;
+                    }
+                }
+            }
+
+            BlockFace[] horizontalFaces = {BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST};
+            for (BlockFace face : horizontalFaces) {
+                Block adjacentBlock = block.getRelative(face);
+                if (adjacentBlock.getType() == Material.CHEST) {
+                    BlockState state = adjacentBlock.getState();
+                    if (state instanceof Chest chest) {
+                        if (chest.getCustomName() != null && chest.getCustomName().equals(nomeBauColetor)) {
+                            event.getPlayer().sendMessage(ChatColor.RED + "Você não pode colocar um baú próximo a um Coletor de Chunk.");
+                            event.setCancelled(true);
+                            return;
+                        }
                     }
                 }
             }
@@ -153,7 +169,7 @@ public class ColetorChunk implements Listener, CommandExecutor {
             }
 
             target.getInventory().addItem(chestItem);
-            sender.sendMessage(ChatColor.GREEN + "Você deu um Coletor de Chunk para " + target.getName() + ".");
+            sender.sendMessage(ChatColor.GREEN + "Coletor de Chunk entregue para " + target.getName() + ".");
             target.sendMessage(ChatColor.GREEN + "Você recebeu um Coletor de Chunk.");
             return true;
         } else if (command.getName().equalsIgnoreCase("removercoletores")) {
@@ -188,7 +204,7 @@ public class ColetorChunk implements Listener, CommandExecutor {
         if (coletoresARemover.isEmpty()) {
             player.sendMessage(ChatColor.RED + "Nenhum coletor encontrado em um raio de " + raio + " blocos.");
         } else {
-            player.sendMessage(ChatColor.GREEN + "Coletores removidos: " + coletoresARemover.size());
+            player.sendMessage(ChatColor.GREEN + "Foram removidos " + coletoresARemover.size() + " coletor(es).");
         }
     }
 
