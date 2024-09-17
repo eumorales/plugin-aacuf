@@ -5,7 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
 
-    private Whitelist whitelist;
+    private WhiteList whitelist;
     private ColetorChunk coletorChunk;
 
     @Override
@@ -14,7 +14,9 @@ public class Main extends JavaPlugin {
             getDataFolder().mkdirs();
         }
 
-        whitelist = new Whitelist(this);
+        // Initialize the whitelist
+        whitelist = new WhiteList(this);
+        this.getCommand("lista").setExecutor(whitelist); // Register the 'lista' command
 
         coletorChunk = new ColetorChunk(this);
         getServer().getPluginManager().registerEvents(coletorChunk, this);
@@ -43,7 +45,6 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-
         coletorChunk.salvarColetores();
         getServer().getConsoleSender().sendMessage(ChatColor.RED + "Plugin desativado com sucesso.");
     }

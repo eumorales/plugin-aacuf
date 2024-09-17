@@ -25,3 +25,7 @@ commands:
     description: Remove coletores em um raio de 3 blocos ao redor do jogador.
     usage: /removercoletores
     permission: aacuf.coletor.remover
+  lista:
+    description: Adiciona ou remove jogadores da lista.
+    usage: /lista <a/r> <jogador>
+    permission: aacuf.lista
