@@ -246,15 +246,20 @@ public class ColetorChunk implements Listener, CommandExecutor {
             double z = locationsConfig.getDouble(key + ".z");
             String worldName = locationsConfig.getString(key + ".world");
 
-            Location location = new Location(Bukkit.getWorld(worldName), x, y, z);
-            if (location.getBlock().getType() == Material.CHEST) {
-                BlockState state = location.getBlock().getState();
-                if (state instanceof Chest chest && nomeBauColetor.equals(chest.getCustomName())) {
-                    chestLocations.add(location);
+            if (Bukkit.getWorld(worldName) != null) {
+                Location location = new Location(Bukkit.getWorld(worldName), x, y, z);
+                if (location.getBlock().getType() == Material.CHEST) {
+                    BlockState state = location.getBlock().getState();
+                    if (state instanceof Chest chest && nomeBauColetor.equals(chest.getCustomName())) {
+                        chestLocations.add(location);
+                    } else {
+                        keysToRemove.add(key);
+                    }
                 } else {
                     keysToRemove.add(key);
                 }
             } else {
+                plugin.getLogger().severe("Mundo '" + worldName + "' não existe.");
                 keysToRemove.add(key);
             }
         }
@@ -267,6 +272,7 @@ public class ColetorChunk implements Listener, CommandExecutor {
             salvarColetores();
         }
     }
+
 
     void salvarColetores() {
         salvarColetores(null, null);

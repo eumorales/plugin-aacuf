@@ -94,7 +94,7 @@ public class WhiteList implements Listener, CommandExecutor {
             if (whitelist.isEmpty()) {
                 sender.sendMessage("§eNenhum jogador registrado na lista.");
             } else {
-                sender.sendMessage("\n§aLista de jogadores que constam na lista:\n ");
+                sender.sendMessage("\n§aLista de jogadores que constam no arquivo:\n ");
 
                 List<String> lista = new ArrayList<>();
                 for (UUID uuid : whitelist) {
@@ -127,16 +127,16 @@ public class WhiteList implements Listener, CommandExecutor {
         if (argumento.equalsIgnoreCase("a")) {
             if (whitelist.add(player.getUniqueId())) {
                 saveWhitelist();
-                sender.sendMessage("§aJogador " + jogador + " adicionado à whitelist.");
+                sender.sendMessage("§aJogador " + jogador + " adicionado à lista.");
             } else {
-                sender.sendMessage("§cJogador já está na whitelist.");
+                sender.sendMessage("§cJogador já registrado na lista.");
             }
         } else if (argumento.equalsIgnoreCase("r")) {
             if (whitelist.remove(player.getUniqueId())) {
                 saveWhitelist();
-                sender.sendMessage("§aJogador " + jogador + " removido da whitelist.");
+                sender.sendMessage("§aJogador " + jogador + " removido da lista.");
             } else {
-                sender.sendMessage("§cJogador não está na whitelist.");
+                sender.sendMessage("§cJogador não está na lista.");
             }
         } else {
             sender.sendMessage("§cUso: /lista <a/r> <jogador>");

@@ -13,19 +13,13 @@ commands:
   tpall:
     description: Teleporta todos os jogadores até você.
     usage: /tpall
-  kick:
-    description: Expulsar um jogador do servidor.
-    usage: /kick <jogador> [motivo]
   givecoletor:
     description: Envia um coletor de chunk
-    usage: /givecoletor <jogador>
     permission: aacuf.coletor.give
     permission-message: Sem permissão.
   removercoletores:
     description: Remove coletores em um raio de 3 blocos ao redor do jogador.
-    usage: /removercoletores
     permission: aacuf.coletor.remover
   lista:
     description: Adiciona ou remove jogadores da lista.
-    usage: /lista <a/r> <jogador>
     permission: aacuf.lista
