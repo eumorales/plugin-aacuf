@@ -1,11 +1,12 @@
+com\gilbertomorales\aacuf\ColetorChunk.class
+com\gilbertomorales\aacuf\Especiais.class
+com\gilbertomorales\aacuf\Join.class
+com\gilbertomorales\aacuf\Teleporte.class
 com\gilbertomorales\aacuf\ComandosBloqueados.class
 com\gilbertomorales\aacuf\Glow.class
 com\gilbertomorales\aacuf\Proximos.class
-com\gilbertomorales\aacuf\ColetorChunk.class
 com\gilbertomorales\aacuf\Tag.class
 com\gilbertomorales\aacuf\ComandosBloqueados$ComandoBloqueado.class
 com\gilbertomorales\aacuf\Chat.class
-com\gilbertomorales\aacuf\Join.class
 com\gilbertomorales\aacuf\Main.class
-com\gilbertomorales\aacuf\Teleporte.class
 com\gilbertomorales\aacuf\WhiteList.class

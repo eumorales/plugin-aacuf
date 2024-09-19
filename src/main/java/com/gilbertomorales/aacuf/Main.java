@@ -23,6 +23,7 @@ public class Main extends JavaPlugin {
         this.getCommand("givecoletor").setExecutor(coletorChunk);
         this.getCommand("removercoletores").setExecutor(coletorChunk);
         this.getCommand("near").setExecutor(new Proximos());
+        this.getCommand("giveespecial").setExecutor(new Especiais(this));
 
         getServer().getConsoleSender().sendMessage(" ");
         getServer().getConsoleSender().sendMessage(ChatColor.GOLD + "     AAA     AAAAA   CCCCCC   U     U   FFFFFF");

@@ -26,3 +26,5 @@ commands:
   near:
     description: Lista os jogadores mais próximos.
     permission: aacuf.near
+  giveespecial:
+    description: Dá um item especial que concede uma permissão ao ser usado.
