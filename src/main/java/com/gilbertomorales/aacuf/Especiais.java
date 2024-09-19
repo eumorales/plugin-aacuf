@@ -31,7 +31,7 @@ public class Especiais implements CommandExecutor, Listener {
 
     private final Map<Integer, Propriedades> listaItens = new HashMap<>() {{
         put(1, new Propriedades("&b&lLIMITE DE 5 HOMES", "&fAumente seu limite de homes!", "system.homes.5"));
-
+        put(2, new Propriedades("&b&lCHAT COLORIDO", "&fEnvie mensagens coloridas no chat.", "aacuf.chat.colorido"));
     }};
 
     @Override
@@ -42,11 +42,11 @@ public class Especiais implements CommandExecutor, Listener {
         }
 
         if (args.length == 0) {
-            sender.sendMessage(" \n§cUtilize: /giveespecial <Jogador> <ID>");
+            sender.sendMessage(" \n§cUtilize: /giveespecial <Jogador> <ID>\n");
             for (Map.Entry<Integer, Propriedades> entry : listaItens.entrySet()) {
                 int id = entry.getKey();
                 String nome = ChatColor.translateAlternateColorCodes('&', entry.getValue().getNome());
-                sender.sendMessage(ChatColor.GRAY + "\nID " + id + ": " + nome);
+                sender.sendMessage(ChatColor.GRAY + "ID " + id + ": " + nome);
             }
             return true;
         }
