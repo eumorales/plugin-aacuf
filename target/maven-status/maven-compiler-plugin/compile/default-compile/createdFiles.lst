@@ -1,4 +1,6 @@
 com\gilbertomorales\aacuf\ComandosBloqueados.class
+com\gilbertomorales\aacuf\Glow.class
+com\gilbertomorales\aacuf\Proximos.class
 com\gilbertomorales\aacuf\ColetorChunk.class
 com\gilbertomorales\aacuf\Tag.class
 com\gilbertomorales\aacuf\ComandosBloqueados$ComandoBloqueado.class

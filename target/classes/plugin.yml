@@ -23,3 +23,6 @@ commands:
   lista:
     description: Adiciona ou remove jogadores da lista.
     permission: aacuf.lista
+  near:
+    description: Lista os jogadores mais próximos.
+    permission: aacuf.near

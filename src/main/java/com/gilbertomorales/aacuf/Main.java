@@ -14,15 +14,15 @@ public class Main extends JavaPlugin {
             getDataFolder().mkdirs();
         }
 
-        // Initialize the whitelist
         whitelist = new WhiteList(this);
-        this.getCommand("lista").setExecutor(whitelist); // Register the 'lista' command
+        this.getCommand("lista").setExecutor(whitelist);
 
         coletorChunk = new ColetorChunk(this);
         getServer().getPluginManager().registerEvents(coletorChunk, this);
 
         this.getCommand("givecoletor").setExecutor(coletorChunk);
         this.getCommand("removercoletores").setExecutor(coletorChunk);
+        this.getCommand("near").setExecutor(new Proximos());
 
         getServer().getConsoleSender().sendMessage(" ");
         getServer().getConsoleSender().sendMessage(ChatColor.GOLD + "     AAA     AAAAA   CCCCCC   U     U   FFFFFF");
